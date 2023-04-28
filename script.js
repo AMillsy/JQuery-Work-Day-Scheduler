@@ -9,6 +9,14 @@ const hours = {
 };
 $(function () {
   renderTimeSlots();
+
+  $(`.saveBtn`).on(`click`, function (e) {
+    //Get the parent which holds the hour
+    const parent = $(e.currentTarget).parents().eq(0);
+    //Get the hour from the dataset
+    const hour = $(parent).data(`hour`);
+    console.log(hour);
+  });
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
