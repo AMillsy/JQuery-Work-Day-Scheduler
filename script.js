@@ -7,15 +7,22 @@ const hours = {
   start: 9,
   end: 22,
 };
+let workDayData = localStorage.getItem(`workDayData`);
 $(function () {
   renderTimeSlots();
 
   $(`.saveBtn`).on(`click`, function (e) {
     //Get the parent which holds the hour
     const parent = $(e.currentTarget).parents().eq(0);
+    //Gets the text from the textArea
+    const text = $(e.currentTarget).siblings().eq(1).val();
+    if (!text) return;
     //Get the hour from the dataset
     const hour = $(parent).data(`hour`);
-    console.log(hour);
+
+    //Adding the data to an object
+    workDayData = { [hour]: text };
+    localStorage.setItem(`workDayData`, JSON.stringify(workDayData));
   });
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
