@@ -5,7 +5,7 @@
 // 24 clock system here but on the page it will be 12 hour clock system
 const hours = {
   start: 9,
-  end: 18,
+  end: 22,
 };
 $(function () {
   renderTimeSlots();
@@ -36,7 +36,7 @@ function renderTimeSlots() {
   const timeslotEl = $(`#timeSlot-container`);
   console.log(timeslotEl);
   for (let i = hours.start; i <= hours.end; i++) {
-    const html = `<div data-hour=${i} class="row time-block past">
+    const html = `<div data-hour=${i} class="row time-block ${getTimeBlock(i)}">
         <div class="col-2 col-md-1 hour text-center py-3">${
           i >= 12 ? `${i === 12 ? 12 : i - 12}pm` : `${i}am`
         }</div>
@@ -47,5 +47,20 @@ function renderTimeSlots() {
       </div>`;
 
     timeslotEl.append(html);
+  }
+}
+
+//Take in the time allocated to the card
+//Get the current time
+//Check if its in the past, present or future
+function getTimeBlock(cardTime) {
+  const currentHour = dayjs().hour();
+
+  if (cardTime < currentHour) {
+    return `past`;
+  } else if (cardTime === currentHour) {
+    return `present`;
+  } else {
+    return `future`;
   }
 }
