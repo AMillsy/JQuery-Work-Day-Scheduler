@@ -7,25 +7,14 @@ const hours = {
   start: 9,
   end: 22,
 };
+
+//Gets the data and puts it back into an object.
 let workDayData = JSON.parse(localStorage.getItem(`workDayData`));
 
 $(function () {
   renderTimeSlots();
-
-  $(`.saveBtn`).on(`click`, function (e) {
-    //Get the parent which holds the hour
-    const parent = $(e.currentTarget).parents().eq(0);
-    //Gets the text from the textArea
-    const text = $(e.currentTarget).siblings().eq(1).val();
-    if (!text) return;
-    //Get the hour from the dataset
-    const hour = $(parent).data(`hour`);
-   
-    //Adding the data to an object
-    workDayData[hour] = text;
-    console.log(workDayData)
-    localStorage.setItem(`workDayData`, JSON.stringify(workDayData));
-  });
+  showCurrentTime();
+  $(`.saveBtn`).on(`click`, saveContent);
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -84,3 +73,27 @@ function getTimeBlock(cardTime) {
 
 //Checks if I have a value at the key, if not, I don't want to render anything
 const renderContent = time => `${workDayData[time] === undefined ? `` : workDayData[time]}`;
+
+//Saves the content to local storage based on the key.
+function saveContent(e){
+  //Get the parent which holds the hour
+    const parent = $(e.currentTarget).parents().eq(0);
+    //Gets the text from the textArea
+    const text = $(e.currentTarget).siblings().eq(1).val();
+    if (!text) return;
+    //Get the hour from the dataset
+    const hour = $(parent).data(`hour`);
+   
+    //Adding the data to an object
+    workDayData[hour] = text;
+    console.log(workDayData)
+    localStorage.setItem(`workDayData`, JSON.stringify(workDayData));
+};
+
+
+function showCurrentTime(){
+  const currentDayEl = $(`#currentDay`);
+
+  const date = dayjs();
+  currentDayEl.text(date)
+};
