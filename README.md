@@ -38,6 +38,17 @@ The main skill that I learnt this week is the ability to quickly skim and interp
 
 A user is able to enter in events in each time slot and then save that to local storage so that they could view later in the day.
 
+### Start screen
 First the user would enter the website and it would show the time.
 
-![Starting screen with the time]()
+![Starting screen with the time](./assets/Readme-Images/CurrentTime.png)
+
+### Time blocks
+Then below it show the which times are in the future, present and past. In this example I forced it to be midday.
+
+![Timeblock showing which time are past, present and future](./assets/Readme-Images/Timeblocks.png)
+
+### Adding Events
+The user is able to enter data into each timeslot and then save it with the button next to the event and it will persist until deletion.
+
+![Content in the timeblocks](./assets/Readme-Images/AddEvents.png)

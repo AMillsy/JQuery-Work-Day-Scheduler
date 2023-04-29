@@ -5,7 +5,7 @@
 // 24 clock system here but on the page it will be 12 hour clock system
 const hours = {
   start: 9,
-  end: 22,
+  end: 17,
 };
 
 const fakeTime = 12;
@@ -112,8 +112,8 @@ function renderTimeBlock(){
     
   
   //Set time block correctly
-  if (blockHour < currentHour) block.classList.add(`past`);
-  else if (blockHour === currentHour) block.classList.add(`present`);
+  if (blockHour < fakeTime) block.classList.add(`past`);
+  else if (blockHour === fakeTime) block.classList.add(`present`);
   else block.classList.add(`future`);
   
  };
