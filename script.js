@@ -12,9 +12,18 @@ const hours = {
 let workDayData = JSON.parse(localStorage.getItem(`workDayData`));
 
 $(function () {
+  //Render the time slot blocks to the screen
   renderTimeSlots();
+  //Put the correct timeslot class on according to the time
+  renderTimeBlock();
+  //Show the time at the top of the screen
   showCurrentTime();
   $(`.saveBtn`).on(`click`, saveContent);
+  setInterval(function(){
+    
+  });
+
+  
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -42,7 +51,7 @@ function renderTimeSlots() {
   const timeslotEl = $(`#timeSlot-container`);
   console.log(timeslotEl);
   for (let i = hours.start; i <= hours.end; i++) {
-    const html = `<div data-hour=${i} class="row time-block ${getTimeBlock(i)}">
+    const html = `<div data-hour=${i} class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3">${
           i >= 12 ? `${i === 12 ? 12 : i - 12}pm` : `${i}am`
         }</div>
@@ -94,22 +103,31 @@ function saveContent(e){
 function showCurrentTime(){
   const currentDayEl = $(`#currentDay`);
 
-  const date = dayjs().format(`dddd, MMMM D, YYYY h:mm A`);
+  const date = dayjs().format(`dddd, MMMM D YYYY h:mm A`);
 
   currentDayEl.text(date);
 };
 
-function getSuffix(day){
-  let suffix = ``;
-  if(day === 1){
-    suffix = `st`;
-  }else if (day === 2){
-  suffix = `nd`;
-  } else if (day === 3){
-      suffix = `rd`;
-  } else{
-    suffix = `th`;
-  };
-  return suffix;
+//Used if the user is on the website for longer then 15 minutes and
 
+function renderTimeBlock(){
+ const timeblocks = $(`.time-block`); 
+
+ for(const block of timeblocks){
+    block.classList.remove(`past`);
+    block.classList.remove(`present`);
+    block.classList.remove(`future`);
+
+    const currentHour = dayjs().hour();
+    const blockHour = Number(block.dataset.hour);
+    console.log(blockHour,currentHour)
+  
+  //Set time block correctly
+  if (blockHour < currentHour) block.classList.add(`past`);
+  else if (blockHour === currentHour) block.classList.add(`present`);
+  else block.classList.add(`future`);
+  
+ };
+    
+ 
 }
