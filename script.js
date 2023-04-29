@@ -10,7 +10,7 @@ const hours = {
 
 //Gets the data and puts it back into an object.
 let workDayData = JSON.parse(localStorage.getItem(`workDayData`));
-
+if(!workDayData) workDayData = {};
 $(function () {
   //Render the time slot blocks to the screen
   renderTimeSlots();
@@ -82,7 +82,10 @@ function getTimeBlock(cardTime) {
 }
 
 //Checks if I have a value at the key, if not, I don't want to render anything
-const renderContent = time => `${workDayData[time] === undefined ? `` : workDayData[time]}`;
+const renderContent = time => {
+  console.log(workDayData);
+  return `${workDayData[time] === undefined ? `` : workDayData[time]}`;
+}
 
 //Saves the content to local storage based on the key.
 function saveContent(e){

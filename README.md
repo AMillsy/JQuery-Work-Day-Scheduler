@@ -34,6 +34,3 @@ The purpose of this week was the use of Third party API's. The first API to take
 
 The main skill that I learnt this week is the ability to quickly skim and interperate the libraries document as they aren't using basic JavaScript syntax and have there own way, so going through document made me realise that it is a skill to be able to understand and then use functions that have been developed by other people. In a real world scenario I will be using document to develop projects, so doing this has helped my understanding and how I should direct myself around documentation. 
 
-
-
-
