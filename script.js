@@ -8,6 +8,8 @@ const hours = {
   end: 22,
 };
 
+const fakeTime = 12;
+
 //Gets the data and puts it back into an object.
 let workDayData = JSON.parse(localStorage.getItem(`workDayData`));
 if(!workDayData) workDayData = {};
@@ -66,24 +68,8 @@ function renderTimeSlots() {
   }
 }
 
-//Take in the time allocated to the card
-//Get the current time
-//Check if its in the past, present or future
-function getTimeBlock(cardTime) {
-  const currentHour = dayjs().hour();
-
-  if (cardTime < currentHour) {
-    return `past`;
-  } else if (cardTime === currentHour) {
-    return `present`;
-  } else {
-    return `future`;
-  }
-}
-
 //Checks if I have a value at the key, if not, I don't want to render anything
 const renderContent = time => {
-  console.log(workDayData);
   return `${workDayData[time] === undefined ? `` : workDayData[time]}`;
 }
 
