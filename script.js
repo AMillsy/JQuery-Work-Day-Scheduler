@@ -19,9 +19,11 @@ $(function () {
   //Show the time at the top of the screen
   showCurrentTime();
   $(`.saveBtn`).on(`click`, saveContent);
+
   setInterval(function(){
-    
-  });
+    showCurrentTime();
+    renderTimeBlock();
+  },6000); // 10 minute interval : 600000
 
   
   // TODO: Add a listener for click events on the save button. This code should
@@ -49,7 +51,6 @@ function renderTimeSlots() {
   //IF HOUR IS IN THE FUTURE: Put class as future
 
   const timeslotEl = $(`#timeSlot-container`);
-  console.log(timeslotEl);
   for (let i = hours.start; i <= hours.end; i++) {
     const html = `<div data-hour=${i} class="row time-block">
         <div class="col-2 col-md-1 hour text-center py-3">${
@@ -95,7 +96,6 @@ function saveContent(e){
    
     //Adding the data to an object
     workDayData[hour] = text;
-    console.log(workDayData)
     localStorage.setItem(`workDayData`, JSON.stringify(workDayData));
 };
 
@@ -114,13 +114,13 @@ function renderTimeBlock(){
  const timeblocks = $(`.time-block`); 
 
  for(const block of timeblocks){
-    block.classList.remove(`past`);
-    block.classList.remove(`present`);
-    block.classList.remove(`future`);
+  block.classList.remove(`past`);
+  block.classList.remove(`present`);
+  block.classList.remove(`future`);
 
-    const currentHour = dayjs().hour();
-    const blockHour = Number(block.dataset.hour);
-    console.log(blockHour,currentHour)
+  const currentHour = dayjs().hour();
+  const blockHour = Number(block.dataset.hour);
+    
   
   //Set time block correctly
   if (blockHour < currentHour) block.classList.add(`past`);
