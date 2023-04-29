@@ -8,8 +8,6 @@ const hours = {
   end: 17,
 };
 
-const fakeTime = 12;
-
 //Gets the data and puts it back into an object.
 let workDayData = JSON.parse(localStorage.getItem(`workDayData`));
 if(!workDayData) workDayData = {};
@@ -112,8 +110,8 @@ function renderTimeBlock(){
     
   
   //Set time block correctly
-  if (blockHour < fakeTime) block.classList.add(`past`);
-  else if (blockHour === fakeTime) block.classList.add(`present`);
+  if (blockHour < currentHour) block.classList.add(`past`);
+  else if (blockHour === currentHour) block.classList.add(`present`);
   else block.classList.add(`future`);
   
  };
