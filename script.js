@@ -7,7 +7,8 @@ const hours = {
   start: 9,
   end: 22,
 };
-let workDayData = localStorage.getItem(`workDayData`);
+let workDayData = JSON.parse(localStorage.getItem(`workDayData`));
+
 $(function () {
   renderTimeSlots();
 
@@ -19,9 +20,10 @@ $(function () {
     if (!text) return;
     //Get the hour from the dataset
     const hour = $(parent).data(`hour`);
-
+   
     //Adding the data to an object
-    workDayData = { [hour]: text };
+    workDayData[hour] = text;
+    console.log(workDayData)
     localStorage.setItem(`workDayData`, JSON.stringify(workDayData));
   });
   // TODO: Add a listener for click events on the save button. This code should
@@ -55,7 +57,7 @@ function renderTimeSlots() {
         <div class="col-2 col-md-1 hour text-center py-3">${
           i >= 12 ? `${i === 12 ? 12 : i - 12}pm` : `${i}am`
         }</div>
-        <textarea class="col-8 col-md-10 description" rows="3"> </textarea>
+        <textarea class="col-8 col-md-10 description" rows="3">${renderContent(i)} </textarea>
         <button class="btn saveBtn col-2 col-md-1" aria-label="save">
           <i class="fas fa-save" aria-hidden="true"></i>
         </button>
@@ -79,3 +81,6 @@ function getTimeBlock(cardTime) {
     return `future`;
   }
 }
+
+//Checks if I have a value at the key, if not, I don't want to render anything
+const renderContent = time => `${workDayData[time] === undefined ? `` : workDayData[time]}`;
