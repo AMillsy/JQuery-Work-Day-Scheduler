@@ -94,6 +94,22 @@ function saveContent(e){
 function showCurrentTime(){
   const currentDayEl = $(`#currentDay`);
 
-  const date = dayjs();
-  currentDayEl.text(date)
+  const date = dayjs().format(`dddd, MMMM D, YYYY h:mm A`);
+
+  currentDayEl.text(date);
 };
+
+function getSuffix(day){
+  let suffix = ``;
+  if(day === 1){
+    suffix = `st`;
+  }else if (day === 2){
+  suffix = `nd`;
+  } else if (day === 3){
+      suffix = `rd`;
+  } else{
+    suffix = `th`;
+  };
+  return suffix;
+
+}
